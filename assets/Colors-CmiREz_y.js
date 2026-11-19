@@ -1,0 +1,683 @@
+import{n as e}from"./rolldown-runtime-sJBDdmOt.js";import{t}from"./jsx-runtime-MKhVqBIO.js";import{i as n,r}from"./react-DITjJg24.js";import{a as i,o as a}from"./blocks-Bj5Oghbr.js";var o;function s(){return(s=e((()=>{o=`@import 'tailwindcss';
+
+/* Light and dark tokens. data-theme comes from the theme setting; with none set, the system decides. */
+:root {
+  color-scheme: light;
+  --bg: #fffbf2;
+  --surface: #ffffff;
+  --ink: #1c1a17;
+  --muted: #645e53;
+  --line: #e7dfcf;
+  --accent: #ffc21a;
+  --accent-ink: #1c1a17;
+  --green: #0b7a43;
+  --orange: #d3460f;
+  --logo-green: #0b7a43;
+  --logo-orange: #e8590c;
+  --right: #1b7a43;
+  --wrong: #b3261e;
+  /* The tree's circles (2026-11-10): the ring's one accent, and a warm off-white disc behind the sushi in both themes,
+     so the soft white edges of the art never show on dark. */
+  --ring: #0b7a43;
+  --electric: #1f6dfb; /* hover on small icons (Dan, 2026-11-13) */
+  --disc: #f6efe0;
+  --focus: #1c1a17; /* the ink, so the ring is the app's own, not the browser's blue (craft review 2026-11-10) */
+  --field: #979287;
+  /* Toasts (Dan, 2026-11-11): one plain colour per kind, a pale fill with dark text of the same hue. */
+  --toast-info-bg: #e7effc; --toast-info-ink: #1d4785;
+  --toast-success-bg: #e3f3e8; --toast-success-ink: #145c33;
+  --toast-warning-bg: #fdf1d8; --toast-warning-ink: #7a4b00;
+  --toast-error-bg: #fbe4e2; --toast-error-ink: #8c1d16;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --bg: #12100d;
+    --surface: #1e1b16;
+    --ink: #f6f1e6;
+    --muted: #a89f8f;
+    --line: #38322a;
+    --accent: #ffc21a;
+    --accent-ink: #1c1a17;
+    --green: #0b7a43;
+    --orange: #d3460f;
+    --logo-green: #22b573;
+    --logo-orange: #ff7a2e;
+    --right: #5fd08f;
+    --wrong: #ff8a80;
+    --focus: #8ab4ff;
+    --field: #6a6660;
+    --ring: #22b573;
+  --electric: #5c9bff;
+    --electric: #5c9bff;
+    --toast-info-bg: #1b2a40; --toast-info-ink: #b9d2ff;
+    --toast-success-bg: #15301f; --toast-success-ink: #a6e6bd;
+    --toast-warning-bg: #3a2c10; --toast-warning-ink: #f5d38a;
+    --toast-error-bg: #3d1a17; --toast-error-ink: #ffb4ab;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #12100d;
+  --surface: #1e1b16;
+  --ink: #f6f1e6;
+  --muted: #a89f8f;
+  --line: #38322a;
+  --accent: #ffc21a;
+  --accent-ink: #1c1a17;
+  --green: #0b7a43;
+  --orange: #d3460f;
+  --logo-green: #22b573;
+  --logo-orange: #ff7a2e;
+  --right: #5fd08f;
+  --wrong: #ff8a80;
+  --focus: #8ab4ff;
+  --field: #6a6660;
+  --ring: #22b573;
+  --toast-info-bg: #1b2a40; --toast-info-ink: #b9d2ff;
+  --toast-success-bg: #15301f; --toast-success-ink: #a6e6bd;
+  --toast-warning-bg: #3a2c10; --toast-warning-ink: #f5d38a;
+  --toast-error-bg: #3d1a17; --toast-error-ink: #ffb4ab;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  /* Text fields and menus: an edge with 3:1 contrast (WCAG 1.4.11). */
+  --color-field: var(--field);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-green: var(--green);
+  --color-orange: var(--orange);
+  --color-right: var(--right);
+  --color-wrong: var(--wrong);
+  --color-ring: var(--ring);
+  --color-disc: var(--disc);
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+/* Phone, and desktop or iPad in landscape: everything a step bigger (Dan's test notes). Sizes are in rem, so one root
+   size scales the lot. */
+@media (max-width: 767px), (min-width: 1024px) {
+  html {
+    font-size: 17px;
+  }
+}
+
+/* Locked like an app: the page never scrolls or bounces. #root fills the screen and scrolls only when a
+   page is taller than it (Settings, About). */
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+#root {
+  position: fixed;
+  inset: 0;
+  overflow-y: auto;
+  overscroll-behavior: none;
+}
+
+/* An app, not a page: pressing a button must never start a text selection. On iPhone that selection
+   highlights the words and swallows the tap. */
+html {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+input {
+  -webkit-user-select: text;
+  user-select: text;
+}
+button {
+  touch-action: manipulation;
+}
+/* Word chips are dragged (chip drag and drop), so a finger on one must not pan the page. Unlayered, like the rule above. */
+button.chip-drag {
+  touch-action: none;
+}
+
+/* Keyboard focus is always visible (WCAG 2.4.7): a 3px ring outside the element, ink in light, light blue in dark. Mouse and touch
+   don't show it. */
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+/* Headings that receive focus when a screen or question opens aren't controls: no ring on them. */
+[tabindex='-1']:focus-visible {
+  outline: none;
+}
+/* Zoomed in, or on a very short screen (WCAG 1.4.4, 1.4.10): the header and footer stop being pinned, so they never
+   cover most of the page. */
+@media (max-height: 520px) {
+  .bar-top,
+  .bar-bottom,
+  .action-row {
+    position: static;
+  }
+}
+/* A focused item is never hidden under the pinned header or footer (WCAG 2.4.11). */
+#root {
+  scroll-padding-top: 5rem;
+  scroll-padding-bottom: 10rem;
+}
+
+@layer components {
+  .btn-primary {
+    @apply min-h-12 rounded-xl bg-green px-4 font-semibold text-white disabled:bg-line disabled:text-muted;
+  }
+  /* Yellow is the primary colour: Start or Resume on home, and Check in a lesson. */
+  .btn-submit {
+    @apply min-h-12 rounded-xl bg-accent px-4 font-semibold text-accent-ink disabled:bg-line disabled:text-muted;
+  }
+  .btn-secondary {
+    @apply min-h-12 rounded-xl border-4 border-line bg-surface px-4 font-medium disabled:opacity-50;
+  }
+  .icon-btn {
+    @apply inline-flex h-11 w-11 items-center justify-center rounded-xl;
+  }
+  /* The border is always 4px, so a state change only recolours it and nothing moves. */
+  .choice {
+    @apply min-h-12 rounded-xl border-4 border-line bg-surface px-4 py-2.5 text-left text-lg;
+  }
+  .chip {
+    @apply min-h-11 rounded-xl border-4 border-line bg-surface px-3.5 text-lg;
+  }
+  /* Chips the typed letters still match (typing to pick chips): the orange edge of a selected item, no fill. */
+  .chip-lit { border-color: var(--orange); }
+  /* Which site a build is on, beside the version name, on any site but main (version.js \`site\`). */
+  /* The parts carousel under the part cap (Home.jsx PartCarousel): arrows beside one card, the cards on a track. */
+  /* Carousel arrows (Dan, 2026-11-11): a round button with a chevron, beside the card and centred on its height. */
+  .carousel-arrow { @apply flex size-10 shrink-0 items-center justify-center rounded-full bg-surface text-ink shadow-[0_1px_4px_rgb(0_0_0/0.16)] [&_svg]:size-5 [&_svg]:stroke-[2.5]; }
+  .carousel-arrow:disabled { @apply opacity-30 shadow-none; }
+  /* Slides by \`left\`, not transform: Firefox snaps composited layers to whole pixels, which judders. */
+  .carousel-track { position: relative; left: 0; transition: left 0.28s ease; }
+  /* Developer-only buttons in the learner's screens: dashed, like the Developer item in Tools. */
+  /* Developer-only text (Dan, 2026-11-11): about 7 pt at half strength, no box; fainter still when it can't act. */
+  .dev-tiny { font-size: 0.55rem; line-height: 1.3; opacity: 0.5; }
+  .dev-tiny-off { opacity: 0.25; }
+  /* The Developer page's Jump to Part buttons. */
+  .dev-jump { @apply rounded-xl border-2 border-dashed border-field px-4 py-2 text-sm font-semibold text-muted; }
+  .site-tag { @apply rounded-md border-2 border-orange px-1.5 text-sm font-semibold text-orange; }
+  /* Chip drag and drop (Lesson.jsx useChipDrag): a press on a chip is the app's, not the page's (no scroll, no text
+     selection, no iOS callout), so a finger can drag it; the copy under the finger, the orange drop bar, and the
+     bank's outline when a drop there takes a chip out. */
+  .chip-drag { touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; cursor: grab; }
+  .chip-drag:disabled { cursor: default; }
+  .chip-dragging, .chip-dragging * { cursor: grabbing !important; user-select: none; -webkit-user-select: none; }
+  .chip-ghost {
+    position: fixed; left: 0; top: 0; z-index: 60; display: none; pointer-events: none; text-align: center;
+    border-color: var(--orange); box-shadow: 0 10px 24px rgb(0 0 0 / 0.22); will-change: transform;
+  }
+  .drop-marker {
+    position: absolute; display: none; width: 4px; margin-left: -2px; border-radius: 2px; background: var(--orange); pointer-events: none;
+  }
+  .drop-bank { outline: 3px dashed var(--orange); outline-offset: 6px; }
+  /* Indicators stay quiet. Yellow, green and orange fills are for things you can act on. */
+  .tag {
+    @apply inline-flex items-center gap-1.5 rounded-md bg-line px-2 py-0.5 text-xs text-muted;
+  }
+  /* Marks a new word: a dot beside the word, no fill. */
+  .new-dot {
+    @apply inline-block size-2 shrink-0 rounded-full bg-orange;
+  }
+  .choice-selected .new-dot {
+    @apply bg-white;
+  }
+  .choice-selected {
+    @apply border-orange bg-orange font-semibold text-white;
+  }
+  .choice-right {
+    @apply border-right;
+  }
+  .choice-wrong {
+    @apply border-wrong;
+  }
+  .text-right-ink {
+    color: var(--right);
+  }
+  /* Match pairs (R19): a correct pair leaves together; a wrong pair shakes. */
+  .pair-out {
+    animation: pair-out 260ms ease-in forwards;
+    pointer-events: none;
+  }
+  .pair-shake {
+    animation: pair-shake 320ms ease-in-out;
+  }
+  /* The row that holds Check or Done, the same on every question type: under the answer area. */
+  .check-row {
+    @apply flex items-center gap-2;
+  }
+  /* On a phone, with no keyboard to get in the way, that row pins to the bottom so it is always in reach.
+     At desktop widths it stays put under the answer area instead of drifting to the bottom of a tall window. */
+  .action-row {
+    @apply sticky bottom-0 mt-auto bg-bg pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))];
+  }
+  @media (min-width: 768px) {
+    .action-row {
+      position: static;
+      margin-top: 0.25rem;
+      padding-bottom: 0;
+    }
+  }
+  /* Grows while pressed, then snaps back. */
+  .btn-primary, .btn-submit, .btn-secondary, .choice, .chip {
+    transition: transform 120ms ease-out, background-color 120ms ease-out;
+  }
+  .btn-primary:active:not(:disabled), .btn-submit:active:not(:disabled), .btn-secondary:active:not(:disabled), .choice:active:not(:disabled), .chip:active:not(:disabled) {
+    transform: scale(1.05);
+    transition-duration: 30ms;
+  }
+  /* Opening screen (Dan, 2026-11-13): a gauze curtain over the home screen, which is already drawn underneath: the page
+     colour at --gauze opacity, with a fine woven-dot texture. Leaving, the logo and version fade in 180 ms while the
+     curtain itself is handed to the halftone canvas (Splash.jsx halftoneOut), and taps already reach the home screen. */
+  .splash {
+    @apply fixed inset-0 z-50 flex items-center justify-center;
+    /* the page colour with a faint ink tint, so the halftone dots read against the home screen as they shrink */
+    background-color: color-mix(in srgb, color-mix(in srgb, var(--bg) 90%, var(--ink)) calc(var(--gauze, 0.84) * 100%), transparent);
+  }
+  .splash::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle at center, color-mix(in srgb, var(--ink) 9%, transparent) 0 0.8px, transparent 1.3px);
+    background-size: 5px 5px;
+  }
+  .splash-dots {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .splash.splash-leaving {
+    background-color: transparent;
+    pointer-events: none;
+  }
+  .splash.splash-leaving::before,
+  .splash.splash-leaving > :not(.splash-dots) {
+    opacity: 0;
+    transition: opacity 180ms ease-out;
+  }
+  /* The returning learner's line (2026-11-15): fades in after the wordmark has drawn. */
+  .splash-line {
+    animation: splash-line-in 400ms ease-out 900ms both;
+  }
+  /* A dash longer than the stroke, offset past its end: nothing shows, not even a round cap, until it moves. */
+  .splash-draw {
+    stroke-dasharray: 1 2;
+    stroke-dashoffset: 1.01;
+    animation: splash-draw 300ms linear both;
+  }
+  /* Toasts (Dan, 2026-11-11): at the top of the screen, sliding down, held about 3 seconds, then sliding back up.
+     One container, one plain colour per kind: info, success, warning, error. */
+  .toast-region {
+    @apply pointer-events-none fixed inset-x-0 top-0 z-40 flex justify-center px-4 pt-[max(0.75rem,env(safe-area-inset-top))];
+  }
+  .toast {
+    @apply w-fit max-w-md rounded-xl border px-4 py-2.5 text-center text-sm font-medium shadow-[0_2px_10px_rgb(0_0_0/0.14)];
+    animation: toast-in 260ms ease-out both, toast-out 260ms ease-in 3200ms forwards;
+  }
+  .toast-info { background: var(--toast-info-bg); color: var(--toast-info-ink); border-color: color-mix(in srgb, var(--toast-info-ink) 25%, transparent); }
+  .toast-success { background: var(--toast-success-bg); color: var(--toast-success-ink); border-color: color-mix(in srgb, var(--toast-success-ink) 25%, transparent); }
+  .toast-warning { background: var(--toast-warning-bg); color: var(--toast-warning-ink); border-color: color-mix(in srgb, var(--toast-warning-ink) 25%, transparent); }
+  /* Ahead of the learner (no locks, Dan 2026-11-15): faded and desaturated, still tappable. */
+  .circle-early .circle-disc, .circle-early > span, .part-early, .tree-early { opacity: 0.55; filter: saturate(0.15); }
+  /* A faded Brush-Up keeps its number at full strength (Dan, 2026-11-18): the fade moves from the disc to what's in it. */
+  .circle-early .circle-disc:has(> [data-badge]) { opacity: 1; filter: none; }
+  .circle-early .circle-disc:has(> [data-badge]) > :not([data-badge]) { opacity: 0.55; filter: saturate(0.15); }
+  /* A passed lesson (Dan, 2026-11-15): green with white text, larger, so it reads at a glance; #15803d on white text is
+     5.0:1 (AA), the same in both themes. */
+  .toast-pass { background: #15803d; color: #fff; border-color: #116b33; @apply text-base font-semibold; }
+  .toast-error { background: var(--toast-error-bg); color: var(--toast-error-ink); border-color: color-mix(in srgb, var(--toast-error-ink) 25%, transparent); }
+  /* The tool strip scrolls sideways without a visible bar. */
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* A pinned bar's edge: a thin line where the bar ends. */
+  .bar-top {
+    @apply sticky top-0 z-20 border-b-2 border-line bg-bg;
+  }
+  .bar-bottom {
+    @apply sticky bottom-0 z-20 border-t-2 border-line bg-bg;
+  }
+  /* Details (a unit, a checkpoint): a bottom sheet on a phone. */
+  .sheet-backdrop {
+    @apply fixed inset-0 z-30 flex items-end bg-black/30;
+  }
+  .sheet {
+    @apply mx-auto max-h-[90dvh] w-full max-w-md overflow-y-auto rounded-t-2xl border-t-2 border-line bg-surface p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))];
+  }
+  /* Home: one column on a phone; from 1024px (desktop, iPad landscape) the path and a right-hand panel. */
+  .home {
+    @apply mx-auto flex min-h-dvh max-w-md flex-col gap-4 px-4;
+  }
+  .home-path {
+    @apply flex flex-1 flex-col gap-4;
+  }
+  /* Home's two pinned buttons: stacked on a phone. */
+  .bottom-buttons {
+    @apply flex flex-col gap-3;
+  }
+  /* Settings sections: one column on a phone. */
+  .settings-grid {
+    @apply flex flex-col gap-6;
+  }
+  /* Developer Notes: a plain reading layout for the rendered documents. */
+  .doc {
+    @apply text-base leading-relaxed;
+    user-select: text;
+    -webkit-user-select: text;
+    overflow-wrap: anywhere;
+  }
+  .doc h1 { @apply mt-2 mb-3 text-xl font-semibold; }
+  .doc h2 { @apply mt-5 mb-2 text-lg font-semibold; }
+  .doc h3, .doc h4 { @apply mt-4 mb-2 font-semibold; }
+  .doc p, .doc ul, .doc ol, .doc pre, .doc blockquote { @apply mb-3; }
+  .doc ul { @apply list-disc pl-5; }
+  .doc ol { @apply list-decimal pl-5; }
+  .doc li { @apply mb-1; }
+  .doc li > ul, .doc li > ol { @apply mt-1 mb-0; }
+  .doc a { @apply underline underline-offset-2; }
+  .doc code { @apply rounded bg-line px-1 text-[0.9em]; }
+  .doc pre { @apply overflow-x-auto rounded-lg bg-line p-3 text-sm; }
+  .doc pre code { @apply bg-transparent p-0; }
+  .doc blockquote { @apply border-l-4 border-line pl-3 text-muted; }
+  .doc hr { @apply my-4 border-t-2 border-line; }
+  .doc-table { @apply mb-3 overflow-x-auto; }
+  .doc table { @apply w-full border-collapse text-sm; }
+  .doc th, .doc td { @apply border-2 border-line px-2 py-1.5 text-left align-top; overflow-wrap: normal; word-break: normal; min-width: 5.5rem; }
+  .doc td:last-child, .doc th:last-child { min-width: 14rem; }
+  .doc th { @apply font-semibold; }
+  .devnotes > summary, .devnotes details > summary { list-style-position: inside; }
+  /* Low-emphasis button: no fill, no border. */
+  .btn-tertiary {
+    @apply inline-flex min-h-9 items-center rounded-lg px-2 text-sm text-muted underline-offset-4 hover:underline;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    /* A toast appears in place and fades; no slide. */
+    .toast {
+      animation: toast-fade 260ms linear 3200ms forwards;
+    }
+    .splash-draw {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
+    .splash-line {
+      animation: none;
+    }
+    .splash {
+      transition: background-color 300ms linear;
+    }
+    .pair-out {
+      animation: none;
+      visibility: hidden;
+    }
+    .pair-shake {
+      animation: none;
+    }
+    .carousel-track {
+      transition: none;
+    }
+    .btn-primary, .btn-submit, .btn-secondary, .choice, .chip {
+      transition: none;
+    }
+    .btn-primary:active:not(:disabled), .btn-submit:active:not(:disabled), .btn-secondary:active:not(:disabled), .choice:active:not(:disabled), .chip:active:not(:disabled) {
+      transform: none;
+      transition: none;
+    }
+  }
+}
+
+/* Pass 2: desktop and iPad in landscape (Dan's test notes). */
+@media (min-width: 1024px) {
+  .home {
+    display: grid;
+    /* Eight and four of a twelve-column grid (Dan, 2026-11-11): the panel was a fixed 400px, about four and a half
+       columns on desktop and five on an iPad; one column narrower gives the tree the room. */
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    column-gap: 3rem;
+    align-items: start;
+    max-width: 72rem;
+    padding-inline: 2rem;
+  }
+  .home-header {
+    grid-column: 1 / -1;
+  }
+  .home-path {
+    min-height: calc(100dvh - 4.5rem);
+  }
+  .home-panel {
+    position: sticky;
+    top: 4rem;
+    max-height: calc(100dvh - 4.5rem);
+    overflow-y: auto;
+    padding: 1rem 0.25rem 1.5rem;
+  }
+  /* A tool's own page, shown inside the panel: no page frame of its own. */
+  .panel-screen > main {
+    min-height: 0;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+  .bottom-buttons {
+    flex-direction: row;
+  }
+  .bottom-buttons > * {
+    flex: 1 1 0;
+  }
+  /* Lessons: bigger quiz items and more room between them. */
+  .lesson h1 {
+    font-size: 1.6rem;
+  }
+  .lesson .choice,
+  .lesson .chip {
+    font-size: 1.3rem;
+  }
+  .lesson .choice {
+    min-height: 3.75rem;
+  }
+  .lesson .chip {
+    min-height: 3.25rem;
+  }
+  .lesson > div {
+    row-gap: 2rem;
+  }
+  .lesson .text-2xl {
+    font-size: 1.85rem;
+  }
+  /* Settings: the sections in two columns. */
+  .settings-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  /* Details open as a centred pop-up, like a website, rather than a bottom sheet. */
+  .sheet-backdrop {
+    align-items: center;
+    padding: 1.5rem;
+  }
+  .sheet {
+    max-width: 32rem;
+    border-width: 2px;
+    border-radius: 1rem;
+    padding-bottom: 1.5rem;
+  }
+}
+
+/* iPad is landscape only (Dan's test notes): held upright, it asks to be turned. Touch screens 744px and wider in
+   portrait are tablets; phones are narrower. */
+.turn-note {
+  display: none;
+}
+@media (pointer: coarse) and (orientation: portrait) and (min-width: 744px) {
+  .turn-note {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    background: var(--bg);
+    text-align: center;
+  }
+}
+
+@keyframes toast-in {
+  from { transform: translateY(calc(-100% - 1rem)); opacity: 0; }
+}
+@keyframes toast-fade {
+  to { opacity: 0; visibility: hidden; }
+}
+@keyframes toast-out {
+  to { transform: translateY(calc(-100% - 1rem)); opacity: 0; visibility: hidden; }
+}
+@keyframes splash-line-in {
+  from { opacity: 0; }
+}
+@keyframes splash-draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes pair-out {
+  to { opacity: 0; transform: scale(0.85); visibility: hidden; }
+}
+@keyframes pair-shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+/* Question entrance (Dan, 2026-11-12): each part of a new question fades up in turn, heading first, 50 ms apart and
+   200 ms each. Opacity and a 4 px lift only; nothing waits on it, and taps and typing work from the first frame. */
+@keyframes q-in { from { opacity: 0; transform: translateY(4px); } }
+.q-enter > * { animation: q-in 200ms ease-out backwards; }
+.q-enter > :nth-child(2) { animation-delay: 50ms; }
+.q-enter > :nth-child(3) { animation-delay: 100ms; }
+.q-enter > :nth-child(4) { animation-delay: 150ms; }
+.q-enter > :nth-child(n + 5) { animation-delay: 200ms; }
+/* Speaker playing and microphone recording (Dan, 2026-11-12, batch 4): the speaker fades on quickly (playing only),
+   then the first arc, then the second, on a loop while it lasts; otherwise the icon is still. */
+@keyframes icon-body { 0% { opacity: 0; } 12%, 100% { opacity: 1; } }
+@keyframes icon-arc1 { 0%, 22% { opacity: 0; } 38%, 100% { opacity: 1; } }
+@keyframes icon-arc2 { 0%, 48% { opacity: 0; } 64%, 100% { opacity: 1; } }
+.icon-live-body .icon-body { animation: icon-body 1.3s ease-out infinite; }
+.icon-live .icon-arc1 { animation: icon-arc1 1.3s ease-out infinite; }
+.icon-live .icon-arc2 { animation: icon-arc2 1.3s ease-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .q-enter > * { animation: none; }
+  .icon-live .icon-body, .icon-live .icon-arc1, .icon-live .icon-arc2 { animation: none; }
+}
+
+/* Sheets (Dan, 2026-11-12, batch 5): on a phone the sheet rises from the bottom over a fading backdrop; from 1024px the
+   centred pop-up fades and settles. Off under reduced motion. */
+@keyframes sheet-up { from { transform: translateY(100%); } }
+@keyframes sheet-fade { from { opacity: 0; } }
+@keyframes sheet-pop { from { opacity: 0; transform: translateY(8px) scale(0.98); } }
+.sheet-backdrop { animation: sheet-fade 200ms ease-out; }
+.sheet { animation: sheet-up 280ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+@media (min-width: 1024px) { .sheet { animation: sheet-pop 200ms ease-out; } }
+@media (prefers-reduced-motion: reduce) { .sheet-backdrop, .sheet { animation: none; } }
+
+/* Hover and press states (Dan, 2026-11-13). Hover only where there's a pointer to hover with, so a tap on a phone
+   never leaves a highlight behind; press everywhere. Nothing on locked circles or checkpoints and scenes not open yet.
+   Checkpoints and Conversations share one pill style (.tree-pill). */
+.tree-pill {
+  display: inline-flex; align-items: center; gap: 0.5rem; border-radius: 9999px; border: 2px solid var(--line);
+  padding: 0.375rem 1rem; font-size: 0.875rem; line-height: 1.25rem; font-weight: 600;
+  transition: transform 120ms ease-out, border-color 120ms ease-out, background-color 120ms ease-out;
+}
+.tree-pill svg { width: 1rem; height: 1rem; }
+/* Leaving: a quick snap back with a small bounce, just past rest and back (Dan, 2026-11-13). Arriving: an easy 160 ms. */
+.circle-node .circle-disc { transition: transform 260ms cubic-bezier(0.2, 1.9, 0.45, 1); }
+.circle-node .circle-track { transition: stroke 100ms ease-out; }
+/* Circle icons (Dan, 2026-11-15): phones get them about twice the size, further from the circle (full size from about
+   390px wide, scaled down on narrower phones so they never reach the next circle); from 1024px the small pair as before. --ci the tap box, --ci-svg the drawn icon, --ci-gap between the two, --ci-out from the disc. */
+.circle-icons { --ci: clamp(1.6rem, calc(19.3vw - 33px), 2.5rem); --ci-svg: calc(var(--ci) * 0.8); --ci-gap: 6px; --ci-out: clamp(3px, calc(10vw - 29px), 10px); }
+@media (min-width: 1024px) { .circle-icons { --ci: 1.75rem; --ci-svg: 1rem; --ci-gap: 4px; --ci-out: 5px; } }
+/* Phones: the two icons sit above the circle like ears (Dan, 2026-11-19, design-system branch), info at the upper left
+   and the grammar note at the upper right, up and out from the ring with clear space between (about 10px). They sit
+   more up than out (52 degrees), so the ears of two neighbouring circles keep their distance; the tap box is taller
+   than it is wide, reaching into the empty space above. --ear-x, --ear-y: how far the ear's centre is from the
+   circle's, across and up; --ear-up: the extra height above the drawn icon. */
+@media (max-width: 1023px) {
+  .circle-icons { --ci: clamp(1.8rem, 8.7vw, 2rem); --ci-svg: clamp(1.3rem, 6.4vw, 1.47rem); --ear-out: calc(min(100cqw, 6rem) / 2 + 20px); --ear-x: calc(var(--ear-out) * 0.616); --ear-y: calc(var(--ear-out) * 0.788); --ear-up: 10px; }
+  /* The first circle's "Start Here" sits above it: there the ears go further out and less far up, clear of the words. */
+  .circle-icons:has(> [data-marker]) { --ear-x: calc(var(--ear-out) * 0.74); --ear-y: calc(var(--ear-out) * 0.67); }
+  .circle-icons .note-icon[data-ear] {
+    top: calc(1.625rem + min(100cqw, 6rem) / 2 - var(--ear-y) - var(--ci) / 2 - var(--ear-up)) !important;
+    height: calc(var(--ci) + var(--ear-up)) !important;
+    align-items: flex-end; padding-bottom: calc((var(--ci) - var(--ci-svg)) / 2);
+  }
+  .circle-icons .note-icon[data-ear='left'] { left: calc(50% - var(--ear-x) - var(--ci) / 2) !important; }
+  .circle-icons .note-icon[data-ear='right'] { left: calc(50% + var(--ear-x) - var(--ci) / 2) !important; }
+  /* Quieter on phones, where every circle carries a pair: 28% strength at rest (40% beside the circle on wide
+     screens); full strength under a finger, as before. */
+  .circle-icons .note-icon[data-ear] { opacity: 0.28; }
+  /* The notebook's drawing fills more of its box than the info circle does, so at the same size it looks larger; drawn
+     5% smaller, from its centre, the two look the same size. Phones only; wide screens are as they were. */
+  .circle-icons [data-note-icon] svg { transform: scale(0.95); }
+}
+.circle-icons .note-icon svg { width: var(--ci-svg); height: var(--ci-svg); }
+.note-icon { transition: color 120ms ease-out, opacity 120ms ease-out, transform 120ms ease-out; }
+.carousel-arrow { transition: transform 120ms ease-out, background-color 120ms ease-out, box-shadow 120ms ease-out; }
+@media (hover: hover) {
+  .circle-node:not([data-state='locked']):hover .circle-disc { transform: scale(1.06); transition: transform 160ms ease-out; }
+  .circle-node:not([data-state='locked']):hover .circle-track { stroke: color-mix(in srgb, var(--ring) 45%, var(--line)); transition: stroke 160ms ease-out; }
+  .note-icon:hover { color: var(--electric); opacity: 1; }
+  .tree-pill[data-live]:hover { border-color: var(--ring); background-color: var(--surface); }
+  .carousel-arrow:not(:disabled):hover { background-color: color-mix(in srgb, var(--surface) 90%, var(--ink)); box-shadow: 0 2px 8px rgb(0 0 0 / 0.22); }
+  .btn-submit:not(:disabled):hover { background-color: color-mix(in srgb, var(--accent) 88%, var(--ink)); }
+}
+.circle-node:not([data-state='locked']):active .circle-disc { transform: scale(0.97); transition-duration: 40ms; }
+.note-icon:active { transform: scale(0.88); color: var(--electric); opacity: 1; transition-duration: 40ms; }
+.tree-pill[data-live]:active { transform: scale(0.95); transition-duration: 40ms; }
+.carousel-arrow:not(:disabled):active { transform: scale(0.9); transition-duration: 40ms; }
+@media (prefers-reduced-motion: reduce) {
+  .circle-node .circle-disc, .note-icon, .tree-pill, .carousel-arrow { transition: none; }
+  .circle-node:not([data-state='locked']):hover .circle-disc, .circle-node:not([data-state='locked']):active .circle-disc,
+  .note-icon:active, .tree-pill[data-live]:active, .carousel-arrow:not(:disabled):active { transform: none; }
+}
+
+/* Answer the Question's reply bubble (Dan, 2026-11-14): the learner's side of the chat, a soft blue like a sent message. */
+.reply-bubble { background: var(--toast-info-bg); border-color: transparent; }
+.reply-bubble.border-orange { border-color: var(--orange); }
+.reply-bubble.focus-within\\:border-ink:focus-within { border-color: var(--ink); }
+
+/* Answer the Question's speaker (Dan, 2026-11-14): the picture and the bubble both ringed in the accent, with one soft
+   pulse as the question comes up. */
+.speaker-ring { border: 3px solid var(--accent); }
+.speaker-row .speaker-ring { animation: speaker-pulse 900ms ease-out 150ms 1 both; }
+@keyframes speaker-pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 70%, transparent); }
+  100% { box-shadow: 0 0 0 10px color-mix(in srgb, var(--accent) 0%, transparent); }
+}
+@media (prefers-reduced-motion: reduce) { .speaker-row .speaker-ring { animation: none; } }
+`})))()}function c(){return(0,u.jsxs)(`table`,{style:{borderCollapse:`collapse`,width:`100%`},children:[(0,u.jsx)(`thead`,{children:(0,u.jsxs)(`tr`,{children:[(0,u.jsx)(`th`,{style:_,children:`Name`}),(0,u.jsx)(`th`,{style:_,children:`Light`}),(0,u.jsx)(`th`,{style:_,children:`Dark`}),(0,u.jsx)(`th`,{style:_,children:`Where It's Used`})]})}),(0,u.jsx)(`tbody`,{children:Object.keys(p).map(e=>(0,u.jsxs)(`tr`,{children:[(0,u.jsx)(`td`,{style:{...v,...y},children:e}),(0,u.jsx)(`td`,{style:v,children:(0,u.jsx)(b,{hex:p[e]})}),(0,u.jsxs)(`td`,{style:v,children:[(0,u.jsx)(b,{hex:m[e]}),m[e].toLowerCase()===p[e].toLowerCase()&&(0,u.jsx)(`div`,{style:{fontSize:12,color:`#666`},children:`same as light`})]}),(0,u.jsx)(`td`,{style:v,children:h[e]??`Not described yet`})]},e))})]})}function l(){return(0,u.jsxs)(`table`,{style:{borderCollapse:`collapse`,width:`100%`},children:[(0,u.jsx)(`thead`,{children:(0,u.jsxs)(`tr`,{children:[(0,u.jsx)(`th`,{style:_,children:`Color`}),(0,u.jsx)(`th`,{style:_,children:`Where It's Used`})]})}),(0,u.jsx)(`tbody`,{children:g.map(([e,t])=>(0,u.jsxs)(`tr`,{children:[(0,u.jsx)(`td`,{style:v,children:(0,u.jsx)(b,{hex:e})}),(0,u.jsx)(`td`,{style:v,children:t})]},e))})]})}var u,d,f,p,m,h,g,_,v,y,b;function x(){return(x=e((()=>{s(),u=t(),d=e=>{let t=o.indexOf(e);return t<0?``:o.slice(t,o.indexOf(`
+}`,t))},f=e=>Object.fromEntries([...e.matchAll(/(--[a-z-]+):\s*(#[0-9a-fA-F]{3,8})/g)].map(e=>[e[1],e[2]])),p=f(d(`:root {`)),m={...p,...f(d(`:root[data-theme='dark'] {`))},h={"--bg":`The page behind everything`,"--surface":`Cards, sheets, choices, word chips, the answer bar`,"--ink":`Text`,"--muted":`Quiet text: captions, hints, text links`,"--line":`Borders, dividers, the empty track of the progress bar and the circle ring`,"--accent":`Yellow, the main button (Check, Start Lesson, Next Lesson) and the small wordmark`,"--accent-ink":`Text on yellow`,"--green":`The Continue button and the progress bar's fill`,"--orange":`A picked choice, the new-word dot, the current flag's outline, the drop bar when dragging a chip`,"--logo-green":`The outer line of the big wordmark`,"--logo-orange":`The inner line of the big wordmark`,"--right":`A right answer: the verdict and the choice's edge`,"--wrong":`A wrong answer: the verdict, the choice's edge, "Incorrect"`,"--ring":`The lesson circle's progress ring and "Start Here"`,"--electric":`Small icons under the mouse (the grammar notebook, the info icon)`,"--disc":`The warm disc behind the sushi in a lesson circle`,"--focus":`The outline around whatever the keyboard is on`,"--field":`Edges of text fields and menus; Developer's dashed outline`,"--toast-info-bg":`Toast, info: fill (also the reply bubble in Answer the Question)`,"--toast-info-ink":`Toast, info: text`,"--toast-success-bg":`Toast, success: fill`,"--toast-success-ink":`Toast, success: text`,"--toast-warning-bg":`Toast, warning: fill`,"--toast-warning-ink":`Toast, warning: text`,"--toast-error-bg":`Toast, error: fill`,"--toast-error-ink":`Toast, error: text`},g=[[`#15803d`,`The passed-lesson toast's fill (src/index.css, .toast-pass)`],[`#116b33`,`The passed-lesson toast's edge (src/index.css, .toast-pass)`],[`#ffffff`,`Text on the passed-lesson toast, on Continue and on a picked choice`],[`#1f6dfb`,`The points chip in Home.jsx (hidden for now); the same blue as --electric in light`]],_={textAlign:`left`,padding:`8px 10px`,fontSize:13,borderBottom:`2px solid #ddd`},v={padding:`8px 10px`,fontSize:14,borderBottom:`1px solid #e6e6e6`,verticalAlign:`middle`},y={fontFamily:`ui-monospace, Menlo, monospace`,fontSize:13},b=({hex:e})=>(0,u.jsxs)(`span`,{style:{display:`inline-flex`,alignItems:`center`,gap:8},children:[(0,u.jsx)(`span`,{style:{width:36,height:36,borderRadius:8,background:e,border:`1px solid rgb(0 0 0 / 0.25)`,flex:`none`}}),(0,u.jsx)(`span`,{style:y,children:e})]}),c.__docgenInfo={description:``,methods:[],displayName:`ColorTable`},l.__docgenInfo={description:``,methods:[],displayName:`LooseColors`}})))()}function S(e){let t={code:`code`,h1:`h1`,h2:`h2`,p:`p`,...n(),...e.components};return(0,w.jsxs)(w.Fragment,{children:[(0,w.jsx)(i,{title:`Colors`}),`
+`,(0,w.jsx)(t.h1,{id:`colors`,children:`Colors`}),`
+`,(0,w.jsxs)(t.p,{children:[`Every color in Tamago has a name, called a token, and is defined once in `,(0,w.jsx)(t.code,{children:`src/index.css`}),`. Components use the name, never the color itself, so one change in that file changes the color everywhere, and switching to dark swaps the whole set at once.`]}),`
+`,(0,w.jsxs)(t.p,{children:[`This table reads `,(0,w.jsx)(t.code,{children:`src/index.css`}),` directly, so it always shows what the app uses.`]}),`
+`,(0,w.jsx)(c,{}),`
+`,(0,w.jsx)(t.h2,{id:`colors-without-a-name`,children:`Colors Without a Name`}),`
+`,(0,w.jsx)(t.p,{children:`A few colors are written straight into the code. They work, but they sit outside the token list, so a change to the palette would miss them. Candidates to become tokens later.`}),`
+`,(0,w.jsx)(l,{})]})}function C(e={}){let{wrapper:t}={...n(),...e.components};return t?(0,w.jsx)(t,{...e,children:(0,w.jsx)(S,{...e})}):S(e)}var w;function T(){return(T=e((()=>{w=t(),r(),a(),x()})))()}T();export{C as default};
