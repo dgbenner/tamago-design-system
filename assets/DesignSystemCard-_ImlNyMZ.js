@@ -1,4 +1,4 @@
-import{n as e}from"./rolldown-runtime-sJBDdmOt.js";import{t}from"./jsx-runtime-MKhVqBIO.js";import{i as n,r}from"./react-DITjJg24.js";import{a as i,o as a}from"./blocks-Bj5Oghbr.js";function o(e){let t={code:`code`,h1:`h1`,h2:`h2`,li:`li`,p:`p`,strong:`strong`,ul:`ul`,...n(),...e.components};return(0,c.jsxs)(c.Fragment,{children:[(0,c.jsx)(i,{title:`Design System Card`}),`
+import{n as e}from"./rolldown-runtime-sJBDdmOt.js";import{t}from"./jsx-runtime-MKhVqBIO.js";import{i as n,r}from"./react-DITjJg24.js";import{a as i,o as a}from"./blocks-oTEFmTiV.js";function o(e){let t={code:`code`,h1:`h1`,h2:`h2`,li:`li`,p:`p`,strong:`strong`,ul:`ul`,...n(),...e.components};return(0,c.jsxs)(c.Fragment,{children:[(0,c.jsx)(i,{title:`Design System Card`}),`
 `,(0,c.jsx)(t.h1,{id:`design-system-card`,children:`Design System Card`}),`
 `,(0,c.jsx)(t.h2,{id:`what-this-is`,children:`What This Is`}),`
 `,(0,c.jsxs)(t.p,{children:[`A demonstration of a design system for Tamago. It lives on its own branch, `,(0,c.jsx)(t.code,{children:`design-system`}),`, and is not part of the live app. Nothing here is merged into the app without Dan's say.`]}),`

@@ -1,4 +1,4 @@
-import{n as e}from"./rolldown-runtime-sJBDdmOt.js";import{t}from"./jsx-runtime-MKhVqBIO.js";import{i as n,r}from"./react-DITjJg24.js";import{a as i,o as a}from"./blocks-Bj5Oghbr.js";var o;function s(){return(s=e((()=>{o=`@import 'tailwindcss';
+import{n as e}from"./rolldown-runtime-sJBDdmOt.js";import{t}from"./jsx-runtime-MKhVqBIO.js";import{i as n,r}from"./react-DITjJg24.js";import{a as i,o as a}from"./blocks-oTEFmTiV.js";var o;function s(){return(s=e((()=>{o=`@import 'tailwindcss';
 
 /* Light and dark tokens. data-theme comes from the theme setting; with none set, the system decides. */
 :root {
